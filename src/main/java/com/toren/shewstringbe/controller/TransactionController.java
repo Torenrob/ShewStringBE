@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
 
+    @Autowired
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 }

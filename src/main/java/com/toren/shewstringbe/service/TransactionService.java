@@ -11,8 +11,12 @@ import java.util.Optional;
 @Service
 public class TransactionService {
 
+    private final TransactionRepo transactionRepo;
+
     @Autowired
-    private TransactionRepo transactionRepo;
+    public TransactionService(TransactionRepo transactionRepo) {
+        this.transactionRepo = transactionRepo;
+    }
 
     public List<Transaction> getAllTransactions() {
         return transactionRepo.findAll();

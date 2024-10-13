@@ -11,8 +11,12 @@ import java.util.Optional;
 @Service
 public class BankAccountService {
 
+    private final BankAccountRepo bankAccountRepo;
+
     @Autowired
-    private BankAccountRepo bankAccountRepo;
+    public BankAccountService(BankAccountRepo bankAccountRepo) {
+        this.bankAccountRepo = bankAccountRepo;
+    }
 
     public List<BankAccount> getAllBankAccounts() {
         return bankAccountRepo.findAll();

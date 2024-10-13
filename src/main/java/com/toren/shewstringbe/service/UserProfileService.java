@@ -3,6 +3,9 @@ package com.toren.shewstringbe.service;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UserProfileService {
+public class UserProfileService implements UserDetailsService {
+
+    private final UserProfileRepo userProfileRepo;
 
     @Autowired
-    UserProfileRepo userProfileRepo;
+    public UserProfileService(UserProfileRepo userProfileRepo) {
+        this.userProfileRepo = userProfileRepo;
+    }
 
     public List<UserProfile> getAllUserProfiles() {
         return userProfileRepo.findAll();
@@ -21,6 +28,10 @@ public class UserProfileService {
 
     public Optional<UserProfile> getUserProfileById(UUID id) {
         return userProfileRepo.findById(id);
+    }
+
+    public Optional<UserProfile> getUserProfileByUserName(String username) {
+        return userProfileRepo.findUserProfileByUsername(username);
     }
 
     public UserProfile createUserProfile(UserProfile userProfile) {
@@ -42,5 +53,10 @@ public class UserProfileService {
                     return userProfileRepo.save(uP);
                 })
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userProfileRepo.findUserProfileByUsername(username).orElseThrow();
     }
 }

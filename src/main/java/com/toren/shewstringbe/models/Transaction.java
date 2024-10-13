@@ -1,10 +1,12 @@
 package com.toren.shewstringbe.models;
 
+import com.toren.shewstringbe.base.TransactionBase;
 import com.toren.shewstringbe.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +15,8 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Data
-public class Transaction {
+@EqualsAndHashCode(callSuper = false)
+public class Transaction extends TransactionBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,9 +40,9 @@ public class Transaction {
     private String description;
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private BankAccount bankAccount;
 }
