@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BankAccountController {
 
+
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private final BankAccountService bankAccountService;
 
     @Autowired

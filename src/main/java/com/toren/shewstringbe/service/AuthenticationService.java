@@ -8,23 +8,19 @@ import com.toren.shewstringbe.repository.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
     private final UserProfileRepo userProfileRepo;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserProfileService userProfileService;
     private final UserProfileMapper userProfileMapper;
 
     @Autowired
-    public AuthenticationService(UserProfileRepo userProfileRepo, PasswordEncoder passwordEncoder,
-                                 AuthenticationManager authenticationManager, UserProfileService userProfileService,
-                                 UserProfileMapper userProfileMapper) {
+    public AuthenticationService(UserProfileRepo userProfileRepo,AuthenticationManager authenticationManager,
+                                 UserProfileService userProfileService, UserProfileMapper userProfileMapper) {
         this.userProfileRepo = userProfileRepo;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.userProfileService = userProfileService;
         this.userProfileMapper = userProfileMapper;

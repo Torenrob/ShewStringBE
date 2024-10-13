@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/transactions")
 public class TransactionController {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final TransactionService transactionService;
 
     @Autowired

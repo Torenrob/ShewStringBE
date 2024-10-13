@@ -14,7 +14,6 @@ public abstract class BankAccountBase {
     //Using Object Class so view can be changed in ResponseEntity
     private List<Transaction> transactions;
 
-    public Object getTransactions() {
-        return transactions;
-    }
+    @SuppressWarnings("unused")
+    public abstract Object getTransactions();
 }
