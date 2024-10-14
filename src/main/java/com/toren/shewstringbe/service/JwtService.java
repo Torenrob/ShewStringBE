@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts.SIG;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Component
 @Data
+@Slf4j
 public class JwtService {
     private final byte[] keyBytes = Decoders.BASE64.decode(System.getenv("SHEW_JWT_SECRET_KEY"));
     private final SecretKey key = Keys.hmacShaKeyFor(keyBytes);
@@ -29,7 +31,7 @@ public class JwtService {
                 .claims(claims)
                 .subject(subject)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(key, SIG.HS256)
                 .compact();
     }

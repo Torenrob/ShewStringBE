@@ -29,8 +29,7 @@ public class UserProfileController {
 
     @Autowired
     public UserProfileController(UserProfileService userProfileService, JwtService jwtService,
-                                 UserProfileMapper userProfileMapper,
-                                 AuthenticationService authenticationService) {
+                                UserProfileMapper userProfileMapper, AuthenticationService authenticationService) {
         this.userProfileService = userProfileService;
         this.jwtService = jwtService;
         this.userProfileMapper = userProfileMapper;
@@ -43,8 +42,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserLoggedInDto> registerUser(@RequestBody UserRegisterDto registerDto)
-            throws Exception {
+    public ResponseEntity<UserLoggedInDto> registerUser(@RequestBody UserRegisterDto registerDto) throws Exception {
         log.info("hello");
 
         UserProfile userProfile = authenticationService.signup(registerDto);

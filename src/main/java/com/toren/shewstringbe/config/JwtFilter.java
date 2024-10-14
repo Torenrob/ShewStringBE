@@ -27,7 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     public JwtFilter(JwtService jwtService, UserProfileService userProfileService,
-                     HandlerExceptionResolver handlerExceptionResolver) {
+                    HandlerExceptionResolver handlerExceptionResolver) {
         this.jwtService = jwtService;
         this.userProfileService = userProfileService;
         this.handlerExceptionResolver = handlerExceptionResolver;
@@ -36,15 +36,11 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        if (request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")){
-            log.info(request.getRequestURI());
-        }
-
+        log.info("Checking for JWT");
         final String authHeader = request.getHeader("Authorization");
 
-        log.info("Jwt");
-
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.warn("No JWT provided in request");
             filterChain.doFilter(request, response);
             return;
         }
@@ -57,6 +53,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userProfileService.loadUserByUsername(userName);
 
                 if (jwtService.validateToken(token, userDetails.getUsername())) {
+                    log.info("JWT validated");
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
 

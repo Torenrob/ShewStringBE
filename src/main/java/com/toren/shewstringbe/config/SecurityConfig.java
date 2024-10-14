@@ -41,12 +41,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(CsrfConfigurer::disable)
-                .authorizeHttpRequests(req -> req.requestMatchers("/user/*").permitAll()
+                .authorizeHttpRequests(req -> req.requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        log.info("At Chain");
-        System.out.println("Chain");
         return http.build();
     }
 

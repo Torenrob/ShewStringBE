@@ -2,7 +2,7 @@ package com.toren.shewstringbe.dto.userdto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.toren.shewstringbe.base.UserProfileBase;
-import com.toren.shewstringbe.config.ExcludeNull;
+import com.toren.shewstringbe.config.ApplicationConfig;
 import com.toren.shewstringbe.models.Transaction;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ public class UserLoggedInDto extends UserProfileBase {
     private String token;
 
     @Override
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = ExcludeNull.class)
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = ApplicationConfig.ExcludeNull.class)
     public List<Transaction> getTransactions() {
         return null;
     }
