@@ -1,5 +1,6 @@
 package com.toren.shewstringbe.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.toren.shewstringbe.base.UserProfileBase;
 import com.toren.shewstringbe.models.converter.StringListConverter;
 import jakarta.persistence.*;
@@ -48,9 +49,11 @@ public class UserProfile extends UserProfileBase implements UserDetails {
     @Convert(converter = StringListConverter.class)
     private List<String> categories = new ArrayList<>();
 
+    @JsonManagedReference("user_transactions")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
+    @JsonManagedReference("user_accounts")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<BankAccount> bankAccounts = new ArrayList<>();
 

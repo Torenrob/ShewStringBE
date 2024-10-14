@@ -14,6 +14,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 
     @Override
     public String convertToDatabaseColumn(List<String> stringList) {
+
         if (stringList == null || stringList.isEmpty()) {
             return "";
         }
@@ -23,6 +24,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 
     @Override
     public List<String> convertToEntityAttribute(String s) {
+
         if (s.isEmpty()) {
             return Collections.emptyList();
         }

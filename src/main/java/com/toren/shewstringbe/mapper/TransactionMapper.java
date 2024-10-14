@@ -6,6 +6,7 @@ import com.toren.shewstringbe.dto.transactiondto.UpdateTransactionDto;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.service.BankAccountService;
 import com.toren.shewstringbe.service.UserProfileService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.UUID;
 
+@Slf4j
 @Component
 public class TransactionMapper {
 
@@ -51,12 +52,16 @@ public class TransactionMapper {
     }
 
     public Transaction fromSubmitTransactionToTransaction(SubmitTransactionDto submitTransactionDto) {
-        Transaction transaction = modelMapper.map(submitTransactionDto, Transaction.class);
-
+        Transaction transaction = new Transaction();
+        transaction.setTransactionType(submitTransactionDto.getTransactionType());
+        transaction.setTitle(submitTransactionDto.getTitle());
+        transaction.setAmount(submitTransactionDto.getAmount());
+        transaction.setDate(submitTransactionDto.getDate());
+        transaction.setCategory(submitTransactionDto.getCategory());
         transaction.setBankAccount(bankAccountService
             .getBankAccountById(submitTransactionDto.getBankAccountId()).orElseThrow());
         transaction.setUserProfile(userProfileService
-            .getUserProfileById(UUID.fromString(submitTransactionDto.getUserId())).orElseThrow());
+            .getUserProfileById(submitTransactionDto.getUserId()).orElseThrow());
 
         return transaction;
     }
@@ -75,7 +80,7 @@ public class TransactionMapper {
         transaction.setBankAccount(bankAccountService
             .getBankAccountById(updateTransactionDto.getBankAccountId()).orElseThrow());
         transaction.setUserProfile(userProfileService
-            .getUserProfileById(UUID.fromString(updateTransactionDto.getUserId())).orElseThrow());
+            .getUserProfileById(updateTransactionDto.getUserId()).orElseThrow());
 
         return transaction;
     }

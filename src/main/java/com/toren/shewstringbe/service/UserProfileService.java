@@ -2,6 +2,7 @@ package com.toren.shewstringbe.service;
 
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.UserProfileRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserProfileService implements UserDetailsService {
 
@@ -26,8 +27,14 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepo.findAll();
     }
 
-    public Optional<UserProfile> getUserProfileById(UUID id) {
-        return userProfileRepo.findById(id);
+    public Optional<UserProfile> getUserProfileById(String id) {
+        Optional<UserProfile> userProfile = Optional.empty();
+        try {
+            userProfile = userProfileRepo.findById(id);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return userProfile;
     }
 
     public Optional<UserProfile> getUserProfileByUserName(String username) {
@@ -38,11 +45,11 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepo.save(userProfile);
     }
 
-    public void deleteUserProfile(UUID id) {
+    public void deleteUserProfile(String id) {
         userProfileRepo.deleteById(id);
     }
 
-    public UserProfile updateUserProfile(UUID id, UserProfile userProfile) {
+    public UserProfile updateUserProfile(String id, UserProfile userProfile) {
         return userProfileRepo.findById(id)
                 .map( uP -> {
                     uP.setTransactions(userProfile.getTransactions());

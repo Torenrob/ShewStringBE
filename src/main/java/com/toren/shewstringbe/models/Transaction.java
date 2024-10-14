@@ -1,5 +1,6 @@
 package com.toren.shewstringbe.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.toren.shewstringbe.base.TransactionBase;
 import com.toren.shewstringbe.enums.TransactionType;
 import jakarta.persistence.*;
@@ -40,9 +41,11 @@ public class Transaction extends TransactionBase {
     private String description;
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
+    @JsonBackReference("user_transactions")
     @ManyToOne(fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
+    @JsonBackReference("account_transactions")
     @ManyToOne(fetch = FetchType.EAGER)
     private BankAccount bankAccount;
 }

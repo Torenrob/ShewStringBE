@@ -1,5 +1,7 @@
 package com.toren.shewstringbe.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.toren.shewstringbe.base.BankAccountBase;
 import com.toren.shewstringbe.enums.AccountType;
 import jakarta.persistence.*;
@@ -24,9 +26,11 @@ public class BankAccount extends BankAccountBase {
     @NotBlank(message = "Bank Account type is required")
     private AccountType accountType;
 
+    @JsonManagedReference("account_transactions")
     @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
+    @JsonBackReference("user_accounts")
     @ManyToOne(fetch = FetchType.EAGER)
     private UserProfile userProfile;
 }

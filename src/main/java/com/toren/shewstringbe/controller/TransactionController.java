@@ -6,6 +6,7 @@ import com.toren.shewstringbe.dto.transactiondto.UpdateTransactionDto;
 import com.toren.shewstringbe.mapper.TransactionMapper;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -33,10 +35,11 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<ReturnTransactionDto> postNewTransaction(@RequestBody SubmitTransactionDto transaction) {
-
+        log.info("Trying to create new transaction");
         Transaction tr = transactionService.createTransaction(
             transactionMapper.fromSubmitTransactionToTransaction(transaction));
 
+        log.info("New Transaction created");
         return ResponseEntity.ok(transactionMapper.fromTransactionToReturnTransactionDto(tr));
     }
 

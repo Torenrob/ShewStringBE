@@ -1,6 +1,7 @@
 package com.toren.shewstringbe.service;
 
 import com.toren.shewstringbe.models.BankAccount;
+import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.BankAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import java.util.Optional;
 public class BankAccountService {
 
     private final BankAccountRepo bankAccountRepo;
+    private final UserProfileService userProfileService;
 
     @Autowired
-    public BankAccountService(BankAccountRepo bankAccountRepo) {
+    public BankAccountService(BankAccountRepo bankAccountRepo, UserProfileService userProfileService) {
         this.bankAccountRepo = bankAccountRepo;
+        this.userProfileService = userProfileService;
     }
 
     public List<BankAccount> getAllBankAccounts() {
@@ -28,6 +31,12 @@ public class BankAccountService {
 
     public BankAccount createBankAccount(BankAccount bankAccount) {
         return bankAccountRepo.save(bankAccount);
+    }
+
+    public List<BankAccount> getBankAccountsByUserId(String userId) {
+        UserProfile userProfile = userProfileService.getUserProfileById(userId).orElseThrow();
+
+        return bankAccountRepo.getBankAccountsByUserProfile(userProfile);
     }
 
     public void deleteBankAccount(Long id) {

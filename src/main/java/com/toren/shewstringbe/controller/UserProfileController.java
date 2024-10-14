@@ -38,6 +38,7 @@ public class UserProfileController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoggedInDto> loginUser(@RequestBody UserLoginDto loginDto) throws Exception {
+        log.info(loginDto.toString());
         return ResponseEntity.ok(getUserAndJwt(authenticationService.loginAuth(loginDto).getUsername()));
     }
 
