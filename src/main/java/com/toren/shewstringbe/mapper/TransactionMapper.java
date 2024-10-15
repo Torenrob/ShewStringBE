@@ -5,6 +5,7 @@ import com.toren.shewstringbe.dto.transactiondto.SubmitTransactionDto;
 import com.toren.shewstringbe.dto.transactiondto.UpdateTransactionDto;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.service.BankAccountService;
+import com.toren.shewstringbe.service.TransactionService;
 import com.toren.shewstringbe.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -22,13 +23,15 @@ public class TransactionMapper {
     private final BankAccountService bankAccountService;
     private final UserProfileService userProfileService;
     private final ModelMapper modelMapper;
+    private final TransactionService transactionService;
 
     @Autowired
     public TransactionMapper(BankAccountService bankAccountService, UserProfileService userProfileService,
-                            ModelMapper modelMapper) {
+                             ModelMapper modelMapper, TransactionService transactionService) {
         this.bankAccountService = bankAccountService;
         this.userProfileService = userProfileService;
         this.modelMapper = modelMapper;
+        this.transactionService = transactionService;
     }
 
     public TreeMap<String, List<Transaction>> fromListToSortedMap(List<Transaction> transactionList) {
@@ -75,13 +78,13 @@ public class TransactionMapper {
     }
 
     public Transaction fromUpdateTransactionDtoToTransaction(UpdateTransactionDto updateTransactionDto) {
-        Transaction transaction = modelMapper.map(updateTransactionDto, Transaction.class);
+        Transaction updatedTransaction = modelMapper.map(updateTransactionDto, Transaction.class);
 
-        transaction.setBankAccount(bankAccountService
-            .getBankAccountById(updateTransactionDto.getBankAccountId()).orElseThrow());
-        transaction.setUserProfile(userProfileService
-            .getUserProfileById(updateTransactionDto.getUserId()).orElseThrow());
+        Transaction originalTransaction = transactionService.getTransactionById(updatedTransaction.getId()).orElseThrow();
 
-        return transaction;
+        updatedTransaction.setBankAccount(originalTransaction.getBankAccount());
+        updatedTransaction.setUserProfile(originalTransaction.getUserProfile());
+
+        return updatedTransaction;
     }
 }

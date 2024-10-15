@@ -47,7 +47,7 @@ public class UserProfile extends UserProfileBase implements UserDetails {
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
     @Convert(converter = StringListConverter.class)
-    private List<String> categories = new ArrayList<>();
+    private List<String> categories = new ArrayList<>(List.of("None"));
 
     @JsonManagedReference("user_transactions")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -2,12 +2,14 @@ package com.toren.shewstringbe.service;
 
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.repository.TransactionRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class TransactionService {
 
@@ -31,7 +33,13 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long id) {
-        transactionRepo.deleteById(id);
+        Transaction transaction = transactionRepo.findById(id).orElseThrow();
+        log.info("Deleting Transaction");
+        transaction.setUserProfile(null);
+        transaction.setBankAccount(null);
+        transactionRepo.save(transaction);
+
+        transactionRepo.delete(transaction);
     }
 
     public Transaction updateTransaction(Long id, Transaction transaction) {

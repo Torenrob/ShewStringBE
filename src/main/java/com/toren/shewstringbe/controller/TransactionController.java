@@ -46,11 +46,10 @@ public class TransactionController {
     @PutMapping("/{id}")
     public ResponseEntity<ReturnTransactionDto> updateTransactionById(@PathVariable Long id,
                                                 @RequestBody UpdateTransactionDto updateTransactionDto) {
-
         Transaction tr = transactionService.updateTransaction(id,
             transactionMapper.fromUpdateTransactionDtoToTransaction(updateTransactionDto));
-
-        return ResponseEntity.ok(transactionMapper.fromTransactionToReturnTransactionDto(tr));
+        ReturnTransactionDto returnTransactionDto = transactionMapper.fromTransactionToReturnTransactionDto(tr);
+        return ResponseEntity.ok(returnTransactionDto);
     }
 
     @DeleteMapping("/{id}")
