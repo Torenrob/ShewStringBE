@@ -42,10 +42,24 @@ public class Transaction extends TransactionBase {
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
     @JsonBackReference("user_transactions")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserProfile userProfile;
 
     @JsonBackReference("account_transactions")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private BankAccount bankAccount;
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+            "createdOn=" + createdOn +
+            ", description='" + description + '\'' +
+            ", category='" + category + '\'' +
+            ", date=" + date +
+            ", amount=" + amount +
+            ", transactionType=" + transactionType +
+            ", title='" + title + '\'' +
+            ", id=" + id +
+        '}';
+    }
 }

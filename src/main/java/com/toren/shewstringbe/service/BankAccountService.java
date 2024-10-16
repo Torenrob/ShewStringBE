@@ -1,6 +1,7 @@
 package com.toren.shewstringbe.service;
 
 import com.toren.shewstringbe.models.BankAccount;
+import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.BankAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,14 @@ public class BankAccountService {
 
     private final BankAccountRepo bankAccountRepo;
     private final UserProfileService userProfileService;
+    private final TransactionService transactionService;
 
     @Autowired
-    public BankAccountService(BankAccountRepo bankAccountRepo, UserProfileService userProfileService) {
+    public BankAccountService(BankAccountRepo bankAccountRepo, UserProfileService userProfileService,
+                            TransactionService transactionService) {
         this.bankAccountRepo = bankAccountRepo;
         this.userProfileService = userProfileService;
+        this.transactionService = transactionService;
     }
 
     public List<BankAccount> getAllBankAccounts() {
@@ -40,7 +44,17 @@ public class BankAccountService {
     }
 
     public void deleteBankAccount(Long id) {
-        bankAccountRepo.deleteById(id);
+        BankAccount bankAccount = bankAccountRepo.getReferenceById(id);
+
+        for (Transaction t: bankAccount.getTransactions()) {
+            transactionService.deleteTransaction(t.getId());
+        }
+
+
+        bankAccount.setUserProfile(null);
+        bankAccountRepo.save(bankAccount);
+
+        bankAccountRepo.delete(bankAccount);
     }
 
     public BankAccount updateBankAccount(Long id, BankAccount bankAccount) {

@@ -27,10 +27,20 @@ public class BankAccount extends BankAccountBase {
     private AccountType accountType;
 
     @JsonManagedReference("account_transactions")
-    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
     @JsonBackReference("user_accounts")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserProfile userProfile;
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", accountType=" + accountType +
+            ", transactions=" + transactions +
+        '}';
+    }
 }
