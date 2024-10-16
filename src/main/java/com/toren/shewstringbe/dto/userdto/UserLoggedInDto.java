@@ -3,6 +3,7 @@ package com.toren.shewstringbe.dto.userdto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.toren.shewstringbe.base.UserProfileBase;
 import com.toren.shewstringbe.config.ApplicationConfig;
+import com.toren.shewstringbe.models.BankAccount;
 import com.toren.shewstringbe.models.Transaction;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +19,12 @@ public class UserLoggedInDto extends UserProfileBase {
     @Override
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = ApplicationConfig.ExcludeNull.class)
     public List<Transaction> getTransactions() {
+        return null;
+    }
+
+    @Override
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = ApplicationConfig.ExcludeNull.class)
+    public List<BankAccount> getBankAccounts() {
         return null;
     }
 }
