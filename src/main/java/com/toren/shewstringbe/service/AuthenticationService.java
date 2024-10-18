@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -18,17 +19,22 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserProfileService userProfileService;
     private final UserProfileMapper userProfileMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthenticationService(UserProfileRepo userProfileRepo,AuthenticationManager authenticationManager,
-                                UserProfileService userProfileService, UserProfileMapper userProfileMapper) {
+    public AuthenticationService(UserProfileRepo userProfileRepo, AuthenticationManager authenticationManager,
+                                UserProfileService userProfileService, UserProfileMapper userProfileMapper,
+                                PasswordEncoder passwordEncoder) {
         this.userProfileRepo = userProfileRepo;
         this.authenticationManager = authenticationManager;
         this.userProfileService = userProfileService;
         this.userProfileMapper = userProfileMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserProfile signup(UserRegisterDto userRegisterDto) {
+        userRegisterDto.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
+        
         return userProfileService
                 .createUserProfile(userProfileMapper.fromUserRegisterDtoToUserProfile(userRegisterDto));
     }

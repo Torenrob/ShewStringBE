@@ -57,6 +57,7 @@ public class UserProfileService implements UserDetailsService {
                     uP.setBankAccounts(userProfile.getBankAccounts());
                     uP.setFirstName(userProfile.getFirstName());
                     uP.setLastName(userProfile.getLastName());
+                    uP.setEmail(userProfile.getEmail());
                     return userProfileRepo.save(uP);
                 })
                 .orElseThrow(() -> new RuntimeException("User not found"));

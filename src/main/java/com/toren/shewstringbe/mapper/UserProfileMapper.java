@@ -5,26 +5,20 @@ import com.toren.shewstringbe.dto.userdto.UserRegisterDto;
 import com.toren.shewstringbe.models.UserProfile;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserProfileMapper {
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserProfileMapper(ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserProfileMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public UserProfile fromUserRegisterDtoToUserProfile(UserRegisterDto userRegisterDto) {
-        UserProfile userProfile = modelMapper.map(userRegisterDto, UserProfile.class);
-
-        userProfile.setPassword(passwordEncoder.encode(userProfile.getPassword()));
-
-        return userProfile;
+        
+        return modelMapper.map(userRegisterDto, UserProfile.class);
     }
 
     public UserLoggedInDto fromUserProfileToLoggedInDto(UserProfile userProfile, String token) {
