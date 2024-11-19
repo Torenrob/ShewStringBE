@@ -36,17 +36,20 @@ public class Transaction extends TransactionBase {
     private LocalDate date;
 
     @NotBlank(message = "Transaction category is required")
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     private String description;
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
     @JsonBackReference("user_transactions")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userProfileId")
     private UserProfile userProfile;
 
     @JsonBackReference("account_transactions")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bankAccountId")
     private BankAccount bankAccount;
 
     @Override

@@ -30,7 +30,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -175,6 +174,7 @@ class ShewstringBeApplicationTests {
     public void transactionRepo(Transaction transaction) {
         transaction.setBankAccount(createdBankAccount);
         transaction.setUserProfile(createdUserProfile);
+        transaction.setCategory(createdUserProfile.getCategories().getFirst());
         Transaction user = transactionRepo.save(transaction);
         
         Optional<Transaction> fromId = transactionRepo.findById(transaction.getId());
@@ -192,7 +192,6 @@ class ShewstringBeApplicationTests {
         UserProfile userProfile = new UserProfile();
         userProfile.setPassword("password");
         userProfile.setTransactions(new ArrayList<>());
-        userProfile.setCategories(new ArrayList<>(List.of("None")));
         userProfile.setLastName("LastName");
         userProfile.setFirstName("First");
         userProfile.setBankAccounts(new ArrayList<>());
@@ -216,7 +215,6 @@ class ShewstringBeApplicationTests {
         transaction.setAmount(new BigDecimal("55.65"));
         transaction.setTitle("Test Transaction");
         transaction.setDate(LocalDate.of(2024,10,15));
-        transaction.setCategory("None");
         transaction.setTransactionType(TransactionType.Credit);
         transaction.setDescription("");
         transaction.setCreatedOn(ZonedDateTime.now());
@@ -276,7 +274,6 @@ class ShewstringBeApplicationTests {
         transaction1.setDate(LocalDate.of(2024,9,7));
         transaction1.setAmount(new BigDecimal("35.00"));
         transaction1.setTitle("Transaction1");
-        transaction1.setCategory("None");
         transaction1.setDescription("");
         
         
@@ -284,14 +281,12 @@ class ShewstringBeApplicationTests {
         transaction2.setDate(LocalDate.of(2024,8,8));
         transaction2.setAmount(new BigDecimal("68.35"));
         transaction2.setTitle("Transaction2");
-        transaction2.setCategory("None");
         transaction2.setDescription("");
         
         transaction3.setTransactionType(TransactionType.Credit);
         transaction3.setDate(LocalDate.of(2024,10,15));
         transaction3.setAmount(new BigDecimal("75.04"));
         transaction3.setTitle("Transaction3");
-        transaction3.setCategory("None");
         transaction3.setDescription("");
         
         return Stream.of(transaction1, transaction2, transaction3);

@@ -1,6 +1,7 @@
 package com.toren.shewstringbe.base;
 
 import com.toren.shewstringbe.enums.TransactionType;
+import com.toren.shewstringbe.models.Category;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,6 +14,6 @@ public abstract class TransactionBase {
     private TransactionType transactionType;
     private BigDecimal amount;
     private LocalDate date;
-    private String category;
+    private Category category;
     private String description;
 }

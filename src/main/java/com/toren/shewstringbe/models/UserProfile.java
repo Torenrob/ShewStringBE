@@ -2,7 +2,6 @@ package com.toren.shewstringbe.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.toren.shewstringbe.base.UserProfileBase;
-import com.toren.shewstringbe.models.converter.StringListConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -12,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -46,8 +46,9 @@ public class UserProfile extends UserProfileBase implements UserDetails {
 
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
-    @Convert(converter = StringListConverter.class)
-    private List<String> categories = new ArrayList<>(List.of("None"));
+    @JsonManagedReference("user_categories")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Category> categories = new ArrayList<>(List.of(new Category("None", new BigDecimal("0.00"))));
 
     @JsonManagedReference("user_transactions")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

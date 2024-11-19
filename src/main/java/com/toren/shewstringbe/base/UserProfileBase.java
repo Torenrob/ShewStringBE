@@ -1,6 +1,9 @@
 package com.toren.shewstringbe.base;
 
+import com.toren.shewstringbe.models.Category;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public abstract class UserProfileBase {
@@ -9,6 +12,6 @@ public abstract class UserProfileBase {
     private String lastName;
     private String email;
     private Object transactions;
-    private Object categories;
+    private List<Category> categories;
     private Object bankAccounts;
 }
