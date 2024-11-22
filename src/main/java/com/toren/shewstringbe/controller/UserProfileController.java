@@ -44,8 +44,6 @@ public class UserProfileController {
 
     @PostMapping("/register")
     public ResponseEntity<UserLoggedInDto> registerUser(@RequestBody UserRegisterDto registerDto) throws Exception {
-        log.info("hello");
-
         UserProfile userProfile = authenticationService.signup(registerDto);
 
         log.info(userProfile.toString());

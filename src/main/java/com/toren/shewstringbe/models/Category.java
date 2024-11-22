@@ -36,4 +36,14 @@ public class Category {
         this.title = title;
         this.budgetLimit = budgetLimit;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+            "budgetLimit=" + budgetLimit +
+            ", type=" + type +
+            ", title='" + title + '\'' +
+            ", id=" + id +
+            '}';
+    }
 }
