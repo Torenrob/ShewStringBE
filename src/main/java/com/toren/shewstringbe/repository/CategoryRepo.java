@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CategoryRepo extends JpaRepository<Category,Long> {
     List<Category> getCategoriesByUserProfile(UserProfile userProfile);
+
+    List<Category> getCategoriesByBudgetId(Long id);
 }

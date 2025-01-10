@@ -58,7 +58,6 @@ class ShewstringBeApplicationTests {
     private UserProfile createdUserProfile;
     private BankAccount createdBankAccount;
     private Transaction createdTransaction;
-    private int count = 0;
     
     @MockBean
     private JwtFilter jwtFilter;
@@ -67,7 +66,6 @@ class ShewstringBeApplicationTests {
     
     @BeforeEach
     public void setUpDbInfo() {
-        count++;
         createdUserProfile = userProfileService.createUserProfile(newUpUserProfile());
 
         BankAccount newBankAccount = newUpBankAccount();
@@ -175,7 +173,7 @@ class ShewstringBeApplicationTests {
         transaction.setBankAccount(createdBankAccount);
         transaction.setUserProfile(createdUserProfile);
         transaction.setCategory(createdUserProfile.getCategories().getFirst());
-        Transaction user = transactionRepo.save(transaction);
+        transactionRepo.save(transaction);
         
         Optional<Transaction> fromId = transactionRepo.findById(transaction.getId());
         

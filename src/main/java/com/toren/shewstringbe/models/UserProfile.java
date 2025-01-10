@@ -46,6 +46,14 @@ public class UserProfile extends UserProfileBase implements UserDetails {
 
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
+    @JsonManagedReference("user_accounts")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BankAccount> bankAccounts = new ArrayList<>();
+
+    @JsonManagedReference("user_budgets")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Budget> budgets = new ArrayList<>();
+
     @JsonManagedReference("user_categories")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>(List.of(new Category("None", new BigDecimal("0.00"))));
@@ -53,10 +61,6 @@ public class UserProfile extends UserProfileBase implements UserDetails {
     @JsonManagedReference("user_transactions")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
-
-    @JsonManagedReference("user_accounts")
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<BankAccount> bankAccounts = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

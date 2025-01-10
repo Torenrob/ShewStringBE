@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = {"/user","/api/user"})
 public class UserProfileController {
 
     private final UserProfileService userProfileService;

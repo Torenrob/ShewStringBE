@@ -26,6 +26,10 @@ public class BankAccount extends BankAccountBase {
     @NotBlank(message = "Bank Account type is required")
     private AccountType accountType;
 
+    @JsonManagedReference("account_budgets")
+    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Budget> budgets = new ArrayList<>(List.of(new Budget()));
+
     @JsonManagedReference("account_transactions")
     @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
@@ -40,6 +44,7 @@ public class BankAccount extends BankAccountBase {
             "id=" + id +
             ", title='" + title + '\'' +
             ", accountType=" + accountType +
+            ", budgets=" + budgets +
             ", transactions=" + transactions +
         '}';
     }

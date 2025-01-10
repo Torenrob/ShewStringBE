@@ -35,6 +35,7 @@ public class Transaction extends TransactionBase {
     @NotNull(message = "Transaction date is required")
     private LocalDate date;
 
+    @JsonBackReference("category_transactions")
     @NotBlank(message = "Transaction category is required")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;

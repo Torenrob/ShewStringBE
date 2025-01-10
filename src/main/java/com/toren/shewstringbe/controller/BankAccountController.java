@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bankAccounts")
+@RequestMapping(value = {"/bankAccounts", "/api/bankAccounts"})
 public class BankAccountController {
 
     private static final Logger log = LoggerFactory.getLogger(BankAccountController.class);
@@ -39,7 +39,6 @@ public class BankAccountController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<ReturnBankAccountDto>> getBankAccountByUserId(@PathVariable String userId) {
-        log.info("Activated");
         List<BankAccount> bankAccounts = bankAccountService.getBankAccountsByUserId(userId);
 
         List<ReturnBankAccountDto> returnBankAccountDtoList = bankAccounts.stream()

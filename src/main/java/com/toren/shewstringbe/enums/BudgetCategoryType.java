@@ -1,6 +1,6 @@
 package com.toren.shewstringbe.enums;
 
-public enum CategoryType {
+public enum BudgetCategoryType {
     Income,
     Expense
 }

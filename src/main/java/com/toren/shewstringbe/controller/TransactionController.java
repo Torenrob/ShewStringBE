@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/transactions")
+@RequestMapping(value = {"/transactions", "/api/transactions"})
 public class TransactionController {
 
     private final TransactionService transactionService;
