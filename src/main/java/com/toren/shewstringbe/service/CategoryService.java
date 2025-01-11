@@ -4,6 +4,7 @@ import com.toren.shewstringbe.dto.categorydto.CreateCategoryDto;
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.dto.categorydto.UpdateCategoryDto;
 import com.toren.shewstringbe.mapper.CategoryMapper;
+import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
@@ -20,7 +21,6 @@ public class CategoryService {
     private final UserProfileService userProfileService;
     private final TransactionService transactionService;
     
-    @Autowired
     public CategoryService(CategoryRepo categoryRepo, UserProfileService userProfileService, CategoryMapper categoryMapper, TransactionService transactionService) {
         this.categoryRepo = categoryRepo;
         this.userProfileService = userProfileService;
@@ -42,16 +42,20 @@ public class CategoryService {
     
     public Category getCategoryById(Long id) {return categoryRepo.getReferenceById(id);}
 
-    public Category createCategory(CreateCategoryDto createCategoryDto) {
+    public Budget createCategory(CreateCategoryDto createCategoryDto) {
         Category category = categoryMapper.toCategoryFromCreateCateogory(createCategoryDto);
 
-        return categoryRepo.save(category);
+        categoryRepo.save(category);
+
+        return category.getBudget();
     }
 
-    public Category createCategory(CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
+    public Budget createCategory(CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
         Category category = categoryMapper.toCategoryfromCreateCategoryNewBudget(createCategoryNewBudgetDto);
 
-        return categoryRepo.save(category);
+        categoryRepo.save(category);
+        
+        return category.getBudget();
     }
 
     public Category updateCategoryById(UpdateCategoryDto updateCategoryDto) {

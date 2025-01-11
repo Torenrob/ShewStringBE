@@ -22,7 +22,6 @@ public class CategoryMapper {
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
 
-  @Autowired
   public CategoryMapper(BudgetService budgetService, UserProfileService userProfileService, ModelMapper modelMapper) {
     this.budgetService = budgetService;
     this.userProfileService = userProfileService;

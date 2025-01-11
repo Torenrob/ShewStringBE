@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryDto;
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.dto.categorydto.UpdateCategoryDto;
+import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
 import com.toren.shewstringbe.service.CategoryService;
 
@@ -56,12 +57,12 @@ public class CategoryController {
   }
 
   @PostMapping
-  public ResponseEntity<Category> createNewCategoryExistingBudget(@RequestBody CreateCategoryDto createCategoryDto) {
+  public ResponseEntity<Budget> createNewCategoryExistingBudget(@RequestBody CreateCategoryDto createCategoryDto) {
     return ResponseEntity.ok(categoryService.createCategory(createCategoryDto));
   }
 
   @PostMapping("/newBudget")
-  public ResponseEntity<Category> createNewCategoryNewBudget(@RequestBody CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
+  public ResponseEntity<Budget> createNewCategoryNewBudget(@RequestBody CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
     return ResponseEntity.ok(categoryService.createCategory(createCategoryNewBudgetDto));
   }
 
