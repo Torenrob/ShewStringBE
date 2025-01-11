@@ -1,6 +1,7 @@
 package com.toren.shewstringbe.service;
 
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryDto;
+import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.dto.categorydto.UpdateCategoryDto;
 import com.toren.shewstringbe.mapper.CategoryMapper;
 import com.toren.shewstringbe.models.Category;
@@ -42,7 +43,13 @@ public class CategoryService {
     public Category getCategoryById(Long id) {return categoryRepo.getReferenceById(id);}
 
     public Category createCategory(CreateCategoryDto createCategoryDto) {
-        Category category = categoryMapper.toCategoryFromCreate(createCategoryDto);
+        Category category = categoryMapper.toCategoryFromCreateCateogory(createCategoryDto);
+
+        return categoryRepo.save(category);
+    }
+
+    public Category createCategory(CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
+        Category category = categoryMapper.toCategoryfromCreateCategoryNewBudget(createCategoryNewBudgetDto);
 
         return categoryRepo.save(category);
     }

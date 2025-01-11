@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryDto;
+import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
 import com.toren.shewstringbe.models.UserProfile;
@@ -28,12 +29,12 @@ public class CategoryMapper {
     this.modelMapper = modelMapper;
   }
 
-  public Category toCategoryFromCreate(CreateCategoryDto createCategoryDto) {
+  public Category toCategoryFromCreateCateogory(CreateCategoryDto createCategoryDto) {
     UserProfile userProfile = userProfileService.getUserProfileById(createCategoryDto.getUserId()).orElseThrow();
 
-    Budget budget = budgetService.getBudgetById(createCategoryDto.getBankAccountId());
-
     Category category = modelMapper.map(createCategoryDto, Category.class);
+
+    Budget budget = createCategoryDto.getBudget();
 
     category.setUserProfile(userProfile);
     category.setBudget(budget);
@@ -41,7 +42,17 @@ public class CategoryMapper {
     return category;
   }
 
-  public CreateCategoryDto toCreateFromCategoryDto(Category category) {
-    return modelMapper.map(category, CreateCategoryDto.class);
+  public Category toCategoryfromCreateCategoryNewBudget(CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
+    UserProfile userProfile = userProfileService.getUserProfileById(createCategoryNewBudgetDto.getUserId()).orElseThrow();
+
+    Category category = modelMapper.map(createCategoryNewBudgetDto, Category.class);
+
+    Budget budget = budgetService.createBudget(createCategoryNewBudgetDto.getBudget());
+
+    category.setUserProfile(userProfile);
+    category.setBudget(budget);
+
+    return category;
   }
+
 }
