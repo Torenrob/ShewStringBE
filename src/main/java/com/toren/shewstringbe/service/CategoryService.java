@@ -9,11 +9,15 @@ import com.toren.shewstringbe.models.Category;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.CategoryRepo;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CategoryService {
     private final CategoryRepo categoryRepo;
@@ -21,6 +25,7 @@ public class CategoryService {
     private final UserProfileService userProfileService;
     private final TransactionService transactionService;
     
+    @Autowired
     public CategoryService(CategoryRepo categoryRepo, UserProfileService userProfileService, CategoryMapper categoryMapper, TransactionService transactionService) {
         this.categoryRepo = categoryRepo;
         this.userProfileService = userProfileService;
@@ -43,7 +48,9 @@ public class CategoryService {
     public Category getCategoryById(Long id) {return categoryRepo.getReferenceById(id);}
 
     public Budget createCategory(CreateCategoryDto createCategoryDto) {
+        log.debug("Requesting to map create category to Category class");
         Category category = categoryMapper.toCategoryFromCreateCateogory(createCategoryDto);
+        log.debug("Create Category object mapped to Category Class");
 
         categoryRepo.save(category);
 

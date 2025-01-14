@@ -22,6 +22,7 @@ public class CategoryMapper {
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
 
+  @Autowired
   public CategoryMapper(BudgetService budgetService, UserProfileService userProfileService, ModelMapper modelMapper) {
     this.budgetService = budgetService;
     this.userProfileService = userProfileService;
@@ -29,14 +30,22 @@ public class CategoryMapper {
   }
 
   public Category toCategoryFromCreateCateogory(CreateCategoryDto createCategoryDto) {
+    log.info("Requesting user profile by id");
     UserProfile userProfile = userProfileService.getUserProfileById(createCategoryDto.getUserId()).orElseThrow();
+    log.info("User Profile received: " + userProfile.getId());
 
-    Category category = modelMapper.map(createCategoryDto, Category.class);
+    log.info("Attempt: Model mapping createCategory to category class"); 
 
-    Budget budget = createCategoryDto.getBudget();
-
+    Category category = new Category();
+    
+    category.setAmount(createCategoryDto.getAmount());
+    category.setBudget(budgetService.getBudgetById(createCategoryDto.getBudget().getId()));
+    category.setColor(createCategoryDto.getColor());
+    category.setTitle(createCategoryDto.getTitle());
+    category.setType(createCategoryDto.getType());
     category.setUserProfile(userProfile);
-    category.setBudget(budget);
+
+    log.info("Success: Create category class mapped to category class");
 
     return category;
   }

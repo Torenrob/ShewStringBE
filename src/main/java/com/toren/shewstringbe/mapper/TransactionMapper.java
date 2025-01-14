@@ -27,7 +27,7 @@ public class TransactionMapper {
 
     @Autowired
     public TransactionMapper(BankAccountService bankAccountService, UserProfileService userProfileService,
-                             ModelMapper modelMapper, TransactionService transactionService) {
+                            ModelMapper modelMapper, TransactionService transactionService) {
         this.bankAccountService = bankAccountService;
         this.userProfileService = userProfileService;
         this.modelMapper = modelMapper;

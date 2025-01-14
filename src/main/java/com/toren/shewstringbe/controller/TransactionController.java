@@ -6,6 +6,8 @@ import com.toren.shewstringbe.dto.transactiondto.UpdateTransactionDto;
 import com.toren.shewstringbe.mapper.TransactionMapper;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.service.TransactionService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = {"/transactions", "/api/transactions"})
 public class TransactionController {
 

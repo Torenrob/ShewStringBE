@@ -21,10 +21,12 @@ import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
 import com.toren.shewstringbe.service.CategoryService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = {"/category", "/api/category"})
 public class CategoryController {
   
@@ -58,7 +60,11 @@ public class CategoryController {
 
   @PostMapping
   public ResponseEntity<Budget> createNewCategoryExistingBudget(@RequestBody CreateCategoryDto createCategoryDto) {
-    return ResponseEntity.ok(categoryService.createCategory(createCategoryDto));
+    log.info("Create Category Existing Budget Request Received");
+
+    Budget budget = categoryService.createCategory(createCategoryDto);
+
+    return ResponseEntity.ok(budget);
   }
 
   @PostMapping("/newBudget")

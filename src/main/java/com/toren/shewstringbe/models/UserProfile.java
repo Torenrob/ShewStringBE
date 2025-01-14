@@ -1,11 +1,12 @@
 package com.toren.shewstringbe.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.toren.shewstringbe.base.UserProfileBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,19 +47,19 @@ public class UserProfile extends UserProfileBase implements UserDetails {
 
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
-    @JsonManagedReference("user_accounts")
+    // @JsonManagedReference("user_accounts")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<BankAccount> bankAccounts = new ArrayList<>();
 
-    @JsonManagedReference("user_budgets")
+    // @JsonManagedReference("user_budgets")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Budget> budgets = new ArrayList<>();
 
-    @JsonManagedReference("user_categories")
+    // @JsonManagedReference("user_categories")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>(List.of(new Category("None", new BigDecimal("0.00"))));
 
-    @JsonManagedReference("user_transactions")
+    // @JsonManagedReference("user_transactions")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 

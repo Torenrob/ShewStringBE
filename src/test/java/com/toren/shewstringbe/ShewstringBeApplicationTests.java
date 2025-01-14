@@ -23,8 +23,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -41,6 +41,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("ShewString Tests")
 class ShewstringBeApplicationTests {
     
+    @MockitoBean
+    private JwtFilter jwtFilter;
+    @MockitoBean
+    private JwtService jwtService;
 
     @Autowired
     private UserProfileService userProfileService;
@@ -59,10 +63,6 @@ class ShewstringBeApplicationTests {
     private BankAccount createdBankAccount;
     private Transaction createdTransaction;
     
-    @MockBean
-    private JwtFilter jwtFilter;
-    @MockBean
-    private JwtService jwtService;
     
     @BeforeEach
     public void setUpDbInfo() {

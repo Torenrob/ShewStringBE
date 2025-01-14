@@ -8,6 +8,7 @@ import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.service.AuthenticationService;
 import com.toren.shewstringbe.service.JwtService;
 import com.toren.shewstringbe.service.UserProfileService;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

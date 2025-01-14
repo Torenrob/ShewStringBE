@@ -1,7 +1,6 @@
 package com.toren.shewstringbe.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toren.shewstringbe.enums.BudgetCategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,19 +28,22 @@ public class Category {
 
     private String color;
 
-    @JsonBackReference("budget_categories")
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonBackReference("budget_categories")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "budgetId")
     private Budget budget;
     
-    @JsonManagedReference("category_transactions")
-    @OneToMany(mappedBy = "category")
+    // @JsonManagedReference("category_transactions")
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
     
     @NotNull
-    @JsonBackReference("user_categories")
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonBackReference("user_categories")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userProfileId")
     private UserProfile userProfile;
 
@@ -59,13 +61,13 @@ public class Category {
         this.color = (type == BudgetCategoryType.Income) ? "#009A1E" : "#DE362A";
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-            "amount=" + amount +
-            ", type=" + type +
-            ", title='" + title + '\'' +
-            ", id=" + id +
-            '}';
-    }
+    // @Override
+    // public String toString() {
+    //     return "Category{" +
+    //         "amount=" + amount +
+    //         ", type=" + type +
+    //         ", title='" + title + '\'' +
+    //         ", id=" + id +
+    //         '}';
+    // }
 }

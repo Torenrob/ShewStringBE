@@ -1,6 +1,6 @@
 package com.toren.shewstringbe.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toren.shewstringbe.base.TransactionBase;
 import com.toren.shewstringbe.enums.TransactionType;
 import jakarta.persistence.*;
@@ -35,35 +35,38 @@ public class Transaction extends TransactionBase {
     @NotNull(message = "Transaction date is required")
     private LocalDate date;
 
-    @JsonBackReference("category_transactions")
+    // @JsonBackReference("category_transactions")
+    @JsonIgnore
     @NotBlank(message = "Transaction category is required")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     private String description;
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
-    @JsonBackReference("user_transactions")
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonBackReference("user_transactions")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userProfileId")
     private UserProfile userProfile;
 
-    @JsonBackReference("account_transactions")
-    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonBackReference("account_transactions")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bankAccountId")
     private BankAccount bankAccount;
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-            "createdOn=" + createdOn +
-            ", description='" + description + '\'' +
-            ", category='" + category + '\'' +
-            ", date=" + date +
-            ", amount=" + amount +
-            ", transactionType=" + transactionType +
-            ", title='" + title + '\'' +
-            ", id=" + id +
-        '}';
-    }
+    // @Override
+    // public String toString() {
+    //     return "Transaction{" +
+    //         "createdOn=" + createdOn +
+    //         ", description='" + description + '\'' +
+    //         ", category='" + category + '\'' +
+    //         ", date=" + date +
+    //         ", amount=" + amount +
+    //         ", transactionType=" + transactionType +
+    //         ", title='" + title + '\'' +
+    //         ", id=" + id +
+    //     '}';
+    // }
 }

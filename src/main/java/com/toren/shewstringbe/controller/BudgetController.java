@@ -17,10 +17,12 @@ import com.toren.shewstringbe.dto.budgetdto.UpdateBudgetDto;
 import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.service.BudgetService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping(value = {"/budget", "/api/budget"})
 public class BudgetController {
   
