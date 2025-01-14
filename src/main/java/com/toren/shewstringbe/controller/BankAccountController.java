@@ -62,9 +62,8 @@ public class BankAccountController {
         BankAccount bankAccount = bankAccountService.createBankAccount(
             bankAccountMapper.fromSubmitBankAccountDtoToBankAccount(submitBankAccountDto));
 
-        log.info("Bank Account created");
         ReturnBankAccountDto returnBankAccountDto = bankAccountMapper.fromBankAccountToReturnBankAccountDto(bankAccount);
-        log.info("Return Dto created");
+
         return ResponseEntity.ok(returnBankAccountDto);
     }
 

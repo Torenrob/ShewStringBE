@@ -22,15 +22,17 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepo categoryRepo;
     private final CategoryMapper categoryMapper;
+    private final BudgetService budgetService;
     private final UserProfileService userProfileService;
     private final TransactionService transactionService;
     
     @Autowired
-    public CategoryService(CategoryRepo categoryRepo, UserProfileService userProfileService, CategoryMapper categoryMapper, TransactionService transactionService) {
+    public CategoryService(CategoryRepo categoryRepo, UserProfileService userProfileService, CategoryMapper categoryMapper, TransactionService transactionService, BudgetService budgetService) {
         this.categoryRepo = categoryRepo;
         this.userProfileService = userProfileService;
         this.categoryMapper = categoryMapper;
         this.transactionService = transactionService;
+        this.budgetService = budgetService;
     }
     
     public List<Category> getAllCategories() {return categoryRepo.findAll();}
@@ -52,17 +54,21 @@ public class CategoryService {
         Category category = categoryMapper.toCategoryFromCreateCateogory(createCategoryDto);
         log.debug("Create Category object mapped to Category Class");
 
-        categoryRepo.save(category);
+        category = categoryRepo.save(category);
 
-        return category.getBudget();
+        Budget budget = budgetService.getBudgetById(createCategoryDto.getBudget().getId());
+
+        budget.getBudgetCategories().add(category);
+
+        return budget;
     }
 
     public Budget createCategory(CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
         Category category = categoryMapper.toCategoryfromCreateCategoryNewBudget(createCategoryNewBudgetDto);
 
         categoryRepo.save(category);
-        
-        return category.getBudget();
+
+        return budgetService.getBudgetById(category.getBudget().getId());
     }
 
     public Category updateCategoryById(UpdateCategoryDto updateCategoryDto) {
