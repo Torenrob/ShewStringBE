@@ -4,7 +4,6 @@ import com.toren.shewstringbe.dto.bankaccountdto.ReturnBankAccountDto;
 import com.toren.shewstringbe.dto.bankaccountdto.SubmitBankAccountDto;
 import com.toren.shewstringbe.mapper.BankAccountMapper;
 import com.toren.shewstringbe.models.BankAccount;
-import com.toren.shewstringbe.repository.TransactionRepo;
 import com.toren.shewstringbe.service.BankAccountService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -25,13 +24,11 @@ public class BankAccountController {
     private static final Logger log = LoggerFactory.getLogger(BankAccountController.class);
     private final BankAccountService bankAccountService;
     private final BankAccountMapper bankAccountMapper;
-    private final TransactionRepo transactionRepo;
 
     @Autowired
-    public BankAccountController(BankAccountService bankAccountService, BankAccountMapper bankAccountMapper, TransactionRepo transactionRepo) {
+    public BankAccountController(BankAccountService bankAccountService, BankAccountMapper bankAccountMapper) {
         this.bankAccountService = bankAccountService;
         this.bankAccountMapper = bankAccountMapper;
-        this.transactionRepo = transactionRepo;
     }
 
     @GetMapping

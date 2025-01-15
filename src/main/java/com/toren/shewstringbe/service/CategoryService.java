@@ -10,6 +10,7 @@ import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.CategoryRepo;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,22 +87,29 @@ public class CategoryService {
         ).orElseThrow(() -> new RuntimeException("Category Not Found"));
     } 
 
-    public void deleteCategoryById(Long id) {
-        Category category = categoryRepo.findById(id).orElseThrow(() -> new RuntimeException("Category Not Found"));
+    @Transactional
+    public Budget deleteCategoryById(Long categoryId, String userId) {
+        Category categoryToDelete = categoryRepo.getReferenceById(categoryId);
 
-        for (Transaction t: category.getTransactions()) {
-            UserProfile userProfile = category.getUserProfile();
-            List<Category> userCategories = userProfile.getCategories();
+        UserProfile userProfile = userProfileService.removeCategoryFromUserProfileById(userId, categoryId);
 
-            Category userDefaultNoneCategory = userCategories.stream().reduce(
-                userCategories.getFirst(),
-                (category1, category2) -> category1.getId() < category2.getId() ? category1 : category2
-            );
-
+        Budget budget = budgetService.getBudgetByCategoryBudgetId(categoryId);
+        
+        List<Transaction> categoryTransactions = transactionService.getTransactionsByCategoryId(categoryId);
+        
+        Category userDefaultNoneCategory = userProfile.getCategories().getFirst();
+        
+        for (Transaction t: categoryTransactions) {
             t.setCategory(userDefaultNoneCategory);
             transactionService.updateTransaction(t.getId(), t);
         }
         
-        categoryRepo.delete(category);
+        Budget budgetCategoryRemoved = budgetService.removeCategoryFromBudgetById(categoryId, budget.getId());
+
+        log.warn("Got here");
+        categoryRepo.delete(categoryToDelete);
+        log.warn("And here");
+
+        return budgetCategoryRemoved;
     }
 }

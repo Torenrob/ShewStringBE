@@ -1,7 +1,8 @@
 package com.toren.shewstringbe.controller;
 
 import java.util.List;
-
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,10 @@ import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.dto.categorydto.UpdateCategoryDto;
 import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
+import com.toren.shewstringbe.models.UserProfile;
+import com.toren.shewstringbe.service.BudgetService;
 import com.toren.shewstringbe.service.CategoryService;
+import com.toren.shewstringbe.service.UserProfileService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class CategoryController {
   
   private final CategoryService categoryService;
-  
 
   @Autowired
   public CategoryController(CategoryService categoryService) {
@@ -78,9 +81,10 @@ public class CategoryController {
     return ResponseEntity.ok(categoryService.updateCategoryById(UpdateCategoryDto));
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
-    categoryService.deleteCategoryById(id);
-    return ResponseEntity.ok().build();
+  @DeleteMapping("/{id}/{userId}")
+  public ResponseEntity<Budget> deleteCategoryById(@PathVariable Long id, @PathVariable String userId) {
+    log.info("Request to delete budget id: " + id);
+
+    return ResponseEntity.ok(categoryService.deleteCategoryById(id, userId));
   }
 }

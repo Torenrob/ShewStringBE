@@ -40,6 +40,10 @@ public class BudgetService {
   public List<Budget> getBudgetsByBankAccount(BankAccount bankAccount) {
     return budgetRepo.getBudgetsByBankAccountId(bankAccount.getId());
   }
+
+  public Budget getBudgetByCategoryBudgetId(Long id) {
+    return budgetRepo.getBudgetByCategoryId(id);
+  }
   
   public List<Budget> getBudgetsByBankAccount(Long id) {
     return budgetRepo.getBudgetsByBankAccountId(id);
@@ -47,6 +51,13 @@ public class BudgetService {
 
   public Budget getBudgetById(Long id) {
     return budgetRepo.findById(id).orElseThrow();
+  }
+
+  public Budget removeCategoryFromBudgetById(Long categoryId, Long budgetId) {
+    Budget budget = budgetRepo.findById(budgetId).orElseThrow(() -> new RuntimeException("Associated Budget not Found"));
+
+    budget.getBudgetCategories().removeIf(category -> category.getId().equals(categoryId));
+    return budgetRepo.save(budget);
   }
 
   public Budget createBudget(CreateBudgetDto createBudgetDto) {

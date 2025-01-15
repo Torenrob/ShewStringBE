@@ -3,6 +3,7 @@ package com.toren.shewstringbe.models;
 import com.toren.shewstringbe.base.UserProfileBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -45,6 +46,7 @@ public class UserProfile extends UserProfileBase implements UserDetails {
     @NotBlank(message = "User password is required")
     private String password;
 
+    @NotNull
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
     // @JsonManagedReference("user_accounts")
@@ -57,6 +59,7 @@ public class UserProfile extends UserProfileBase implements UserDetails {
 
     // @JsonManagedReference("user_categories")
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderBy("createdAt ASC")
     private List<Category> categories = new ArrayList<>(List.of(new Category("None", new BigDecimal("0.00"))));
 
     // @JsonManagedReference("user_transactions")

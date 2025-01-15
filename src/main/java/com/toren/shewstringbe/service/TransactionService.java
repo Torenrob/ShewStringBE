@@ -28,6 +28,10 @@ public class TransactionService {
         return transactionRepo.findById(id);
     }
 
+    public List<Transaction> getTransactionsByCategoryId(Long id) {
+        return transactionRepo.getTransactionsByCategory_Id(id);
+    }
+;
     public Transaction createTransaction(Transaction transaction) {
         return transactionRepo.save(transaction);
     }

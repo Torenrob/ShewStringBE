@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class Category {
     private BigDecimal amount;
 
     private String color;
+    
+    @NotNull
+    private ZonedDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC);
 
     // @JsonBackReference("budget_categories")
     @JsonIgnore

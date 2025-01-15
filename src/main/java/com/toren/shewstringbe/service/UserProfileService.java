@@ -63,6 +63,14 @@ public class UserProfileService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    public UserProfile removeCategoryFromUserProfileById(String userId, Long categoryId) {
+        UserProfile userProfile = getUserProfileById(userId).orElseThrow(() -> new RuntimeException("Associated User Profile not Found"));
+
+        userProfile.getCategories().removeIf(cat -> cat.getId().equals(categoryId));
+
+        return userProfileRepo.save(userProfile);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userProfileRepo.findUserProfileByUsername(username).orElseThrow();
