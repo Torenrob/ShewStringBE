@@ -9,7 +9,6 @@ import com.toren.shewstringbe.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,6 @@ public class BankAccountMapper {
     private final UserProfileService userProfileService;
     private final TransactionMapper transactionMapper;
 
-    @Autowired
     public BankAccountMapper(ModelMapper modelMapper, UserProfileService userProfileService, TransactionMapper transactionMapper) {
         this.userProfileService = userProfileService;
         this.transactionMapper = transactionMapper;

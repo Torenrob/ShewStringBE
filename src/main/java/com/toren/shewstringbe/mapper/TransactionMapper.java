@@ -9,7 +9,6 @@ import com.toren.shewstringbe.service.TransactionService;
 import com.toren.shewstringbe.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class TransactionMapper {
     private final ModelMapper modelMapper;
     private final TransactionService transactionService;
 
-    @Autowired
     public TransactionMapper(BankAccountService bankAccountService, UserProfileService userProfileService,
                             ModelMapper modelMapper, TransactionService transactionService) {
         this.bankAccountService = bankAccountService;

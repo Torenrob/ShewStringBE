@@ -1,10 +1,6 @@
 package com.toren.shewstringbe.controller;
 
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,11 +16,7 @@ import com.toren.shewstringbe.dto.categorydto.CreateCategoryNewBudgetDto;
 import com.toren.shewstringbe.dto.categorydto.UpdateCategoryDto;
 import com.toren.shewstringbe.models.Budget;
 import com.toren.shewstringbe.models.Category;
-import com.toren.shewstringbe.models.UserProfile;
-import com.toren.shewstringbe.service.BudgetService;
 import com.toren.shewstringbe.service.CategoryService;
-import com.toren.shewstringbe.service.UserProfileService;
-
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +28,6 @@ public class CategoryController {
   
   private final CategoryService categoryService;
 
-  @Autowired
   public CategoryController(CategoryService categoryService) {
     this.categoryService = categoryService;
   }

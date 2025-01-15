@@ -10,10 +10,8 @@ import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.CategoryRepo;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +25,6 @@ public class CategoryService {
     private final UserProfileService userProfileService;
     private final TransactionService transactionService;
     
-    @Autowired
     public CategoryService(CategoryRepo categoryRepo, UserProfileService userProfileService, CategoryMapper categoryMapper, TransactionService transactionService, BudgetService budgetService) {
         this.categoryRepo = categoryRepo;
         this.userProfileService = userProfileService;
@@ -87,7 +84,7 @@ public class CategoryService {
         ).orElseThrow(() -> new RuntimeException("Category Not Found"));
     } 
 
-    @Transactional
+
     public Budget deleteCategoryById(Long categoryId, String userId) {
         Category categoryToDelete = categoryRepo.getReferenceById(categoryId);
 
@@ -103,12 +100,10 @@ public class CategoryService {
             t.setCategory(userDefaultNoneCategory);
             transactionService.updateTransaction(t.getId(), t);
         }
-        
+
         Budget budgetCategoryRemoved = budgetService.removeCategoryFromBudgetById(categoryId, budget.getId());
 
-        log.warn("Got here");
         categoryRepo.delete(categoryToDelete);
-        log.warn("And here");
 
         return budgetCategoryRemoved;
     }

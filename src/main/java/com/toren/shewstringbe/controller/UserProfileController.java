@@ -12,7 +12,6 @@ import com.toren.shewstringbe.service.UserProfileService;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +31,6 @@ public class UserProfileController {
     private final UserProfileMapper userProfileMapper;
     private final AuthenticationService authenticationService;
 
-    @Autowired
     public UserProfileController(UserProfileService userProfileService, JwtService jwtService,
                                 UserProfileMapper userProfileMapper, AuthenticationService authenticationService) {
         this.userProfileService = userProfileService;

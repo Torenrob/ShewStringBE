@@ -1,7 +1,6 @@
 package com.toren.shewstringbe.mapper;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.toren.shewstringbe.dto.categorydto.CreateCategoryDto;
@@ -22,7 +21,6 @@ public class CategoryMapper {
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
 
-  @Autowired
   public CategoryMapper(BudgetService budgetService, UserProfileService userProfileService, ModelMapper modelMapper) {
     this.budgetService = budgetService;
     this.userProfileService = userProfileService;

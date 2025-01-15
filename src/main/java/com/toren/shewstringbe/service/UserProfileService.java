@@ -3,7 +3,6 @@ package com.toren.shewstringbe.service;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.UserProfileRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +17,6 @@ public class UserProfileService implements UserDetailsService {
 
     private final UserProfileRepo userProfileRepo;
 
-    @Autowired
     public UserProfileService(UserProfileRepo userProfileRepo) {
         this.userProfileRepo = userProfileRepo;
     }

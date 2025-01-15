@@ -2,7 +2,6 @@ package com.toren.shewstringbe.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toren.shewstringbe.dto.budgetdto.CreateBudgetDto;
@@ -21,7 +20,6 @@ public class BudgetService {
   private final BankAccountService bankAccountService;
   private final UserProfileService userProfileService;
 
-  @Autowired
   public BudgetService(BudgetRepo budgetRepo, BudgetMapper budgetMapper, BankAccountService bankAccountService, UserProfileService userProfileService) {
     this.budgetRepo = budgetRepo;
     this.budgetMapper = budgetMapper;

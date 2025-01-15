@@ -4,7 +4,6 @@ import com.toren.shewstringbe.models.BankAccount;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.BankAccountRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public class BankAccountService {
     private final UserProfileService userProfileService;
     private final TransactionService transactionService;
 
-    @Autowired
     public BankAccountService(BankAccountRepo bankAccountRepo, UserProfileService userProfileService,
                             TransactionService transactionService) {
         this.bankAccountRepo = bankAccountRepo;

@@ -3,7 +3,6 @@ package com.toren.shewstringbe.service;
 import com.toren.shewstringbe.models.Transaction;
 import com.toren.shewstringbe.repository.TransactionRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,6 @@ public class TransactionService {
 
     private final TransactionRepo transactionRepo;
 
-    @Autowired
     public TransactionService(TransactionRepo transactionRepo) {
         this.transactionRepo = transactionRepo;
     }

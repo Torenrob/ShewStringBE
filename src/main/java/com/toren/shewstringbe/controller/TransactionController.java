@@ -9,7 +9,6 @@ import com.toren.shewstringbe.service.TransactionService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,6 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final TransactionMapper transactionMapper;
 
-    @Autowired
     public TransactionController(TransactionService transactionService, TransactionMapper transactionMapper) {
         this.transactionService = transactionService;
         this.transactionMapper = transactionMapper;

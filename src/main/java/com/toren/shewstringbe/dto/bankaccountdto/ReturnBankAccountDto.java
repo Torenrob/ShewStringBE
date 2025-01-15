@@ -9,7 +9,6 @@ import com.toren.shewstringbe.models.Transaction;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,8 +27,7 @@ public class ReturnBankAccountDto extends BankAccountBase {
 
     @JsonIgnore
     private final TransactionMapper transactionMapper;
-
-    @Autowired
+    
     public ReturnBankAccountDto(TransactionMapper transactionMapper) {
         this.transactionMapper = transactionMapper;
     }

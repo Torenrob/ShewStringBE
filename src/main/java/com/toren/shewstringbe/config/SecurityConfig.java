@@ -2,7 +2,6 @@ package com.toren.shewstringbe.config;
 
 import com.toren.shewstringbe.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +29,6 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
     private final UserProfileService userProfileService;
 
-    @Autowired
     public SecurityConfig(JwtFilter jwtFilter, UserProfileService userProfileService) {
         this.jwtFilter = jwtFilter;
         this.userProfileService = userProfileService;

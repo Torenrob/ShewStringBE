@@ -6,7 +6,6 @@ import com.toren.shewstringbe.mapper.UserProfileMapper;
 import com.toren.shewstringbe.models.UserProfile;
 import com.toren.shewstringbe.repository.UserProfileRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +20,6 @@ public class AuthenticationService {
     private final UserProfileMapper userProfileMapper;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public AuthenticationService(UserProfileRepo userProfileRepo, AuthenticationManager authenticationManager,
                                 UserProfileService userProfileService, UserProfileMapper userProfileMapper,
                                 PasswordEncoder passwordEncoder) {
