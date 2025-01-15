@@ -1,5 +1,6 @@
 package com.toren.shewstringbe.controller;
 
+import com.toren.shewstringbe.dto.userdto.UserInfoDto;
 import com.toren.shewstringbe.dto.userdto.UserLoggedInDto;
 import com.toren.shewstringbe.dto.userdto.UserLoginDto;
 import com.toren.shewstringbe.dto.userdto.UserRegisterDto;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Slf4j
 @RestController
@@ -39,7 +43,6 @@ public class UserProfileController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoggedInDto> loginUser(@RequestBody UserLoginDto loginDto) throws Exception {
-        log.info(loginDto.toString());
         return ResponseEntity.ok(getUserAndJwt(authenticationService.loginAuth(loginDto).getUsername()));
     }
 
@@ -56,13 +59,26 @@ public class UserProfileController {
         return ResponseEntity.ok(userLoggedInDto);
     }
 
+    @GetMapping("/{userId}")
+    public UserInfoDto getUserInfo(@PathVariable String userId) {
+        UserProfile userProfile;
+        try {
+            userProfile = userProfileService.getUserProfileById(userId).orElseThrow();
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("User Profile Not Found", e);
+        }
+
+        return userProfileMapper.fromUserProfileToUserInfoDto(userProfile);
+    }
+    
+
     private UserLoggedInDto getUserAndJwt(String userName) throws Exception {
         String token = jwtService.generateToken(userName);
         UserProfile userProfile;
         try {
             userProfile = userProfileService.getUserProfileByUserName(userName).orElseThrow();
         } catch (EntityNotFoundException e) {
-            throw new Exception("User not found", e);
+            throw new EntityNotFoundException("User Profile Not Found", e);
         }
 
         return userProfileMapper.fromUserProfileToLoggedInDto(userProfile, token);

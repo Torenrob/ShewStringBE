@@ -62,13 +62,13 @@ public class CategoryController {
   public ResponseEntity<Budget> createNewCategoryExistingBudget(@RequestBody CreateCategoryDto createCategoryDto) {
     log.info("Create Category Existing Budget Request Received");
 
-    Budget budget = categoryService.createCategory(createCategoryDto);
-
-    return ResponseEntity.ok(budget);
+    return ResponseEntity.ok(categoryService.createCategory(createCategoryDto));
   }
 
   @PostMapping("/newBudget")
   public ResponseEntity<Budget> createNewCategoryNewBudget(@RequestBody CreateCategoryNewBudgetDto createCategoryNewBudgetDto) {
+    log.info("Create Category with New Budget Request Received");
+
     return ResponseEntity.ok(categoryService.createCategory(createCategoryNewBudgetDto));
   }
 

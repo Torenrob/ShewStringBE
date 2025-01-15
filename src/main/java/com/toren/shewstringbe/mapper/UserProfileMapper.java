@@ -1,5 +1,6 @@
 package com.toren.shewstringbe.mapper;
 
+import com.toren.shewstringbe.dto.userdto.UserInfoDto;
 import com.toren.shewstringbe.dto.userdto.UserLoggedInDto;
 import com.toren.shewstringbe.dto.userdto.UserRegisterDto;
 import com.toren.shewstringbe.models.UserProfile;
@@ -27,5 +28,9 @@ public class UserProfileMapper {
         userLoggedInDto.setToken(token);
 
         return userLoggedInDto;
+    }
+
+    public UserInfoDto fromUserProfileToUserInfoDto(UserProfile userProfile) {
+        return modelMapper.map(userProfile, UserInfoDto.class);
     }
 }

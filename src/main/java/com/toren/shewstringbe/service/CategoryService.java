@@ -68,7 +68,11 @@ public class CategoryService {
 
         categoryRepo.save(category);
 
-        return budgetService.getBudgetById(category.getBudget().getId());
+        Budget budget = budgetService.getBudgetById(category.getBudget().getId());
+
+        budget.getBudgetCategories().add(category);
+
+        return budget;
     }
 
     public Category updateCategoryById(UpdateCategoryDto updateCategoryDto) {
