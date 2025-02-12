@@ -1,5 +1,6 @@
 package com.toren.shewstringbe.controller;
 
+import com.toren.shewstringbe.dto.userdto.UpdateUserDto;
 import com.toren.shewstringbe.dto.userdto.UserInfoDto;
 import com.toren.shewstringbe.dto.userdto.UserLoggedInDto;
 import com.toren.shewstringbe.dto.userdto.UserLoginDto;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @Slf4j
@@ -68,6 +71,13 @@ public class UserProfileController {
 
         return userProfileMapper.fromUserProfileToUserInfoDto(userProfile);
     }
+
+    // @PutMapping("/update")
+    // public String updateUserInfo(@RequestBody UpdateUserDto updateUserDto ) {
+        
+        
+    //     return entity;
+    // }
     
 
     private UserLoggedInDto getUserAndJwt(String userName) throws Exception {

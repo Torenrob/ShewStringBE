@@ -55,6 +55,8 @@ public class UserProfileService implements UserDetailsService {
                     uP.setBankAccounts(userProfile.getBankAccounts());
                     uP.setFirstName(userProfile.getFirstName());
                     uP.setLastName(userProfile.getLastName());
+                    uP.setUsername(userProfile.getUsername());
+                    uP.setPassword(userProfile.getPassword());
                     uP.setEmail(userProfile.getEmail());
                     return userProfileRepo.save(uP);
                 })

@@ -46,6 +46,14 @@ public class UserProfile extends UserProfileBase implements UserDetails {
     @NotBlank(message = "User password is required")
     private String password;
 
+    private boolean isAccountNonExpired = true;
+    
+    private boolean isAccountNonLocked = true;
+
+    private boolean isCredentialsNonExpired = true;
+
+    private boolean isEnabled = true;
+
     @NotNull
     private ZonedDateTime createdOn = ZonedDateTime.now(ZoneOffset.UTC);
 
@@ -71,30 +79,6 @@ public class UserProfile extends UserProfileBase implements UserDetails {
         return List.of();
     }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
 
 
